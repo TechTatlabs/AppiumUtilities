@@ -26,7 +26,7 @@ public class HandlingGestureDemo_DragandDrop {
 
         UiAutomator2Options options = new UiAutomator2Options();
         options.setPlatformName("Android");
-        options.setUdid("emulator-5554");
+        options.setUdid("29221JEGR00379");
         options.setAutomationName(AutomationName.ANDROID_UIAUTOMATOR2);
 //        options.setApp("/Users/aravindbalaji/Documents/Appium/Sample App/android-app.apk");
 //        options.setAppPackage("com.saucelabs.mydemoapp.rn");

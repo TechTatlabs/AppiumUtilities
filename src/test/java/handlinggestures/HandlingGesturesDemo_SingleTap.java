@@ -23,16 +23,16 @@ public class HandlingGesturesDemo_SingleTap {
     public static void main(String[] args) throws MalformedURLException, InterruptedException {
         UiAutomator2Options options = new UiAutomator2Options();
         options.setPlatformName("Android");
-        options.setDeviceName("H0C9FI1LV01B0300012");
+        options.setDeviceName("29221JEGR00379");
         options.setAutomationName(AutomationName.ANDROID_UIAUTOMATOR2);
         options.setAppPackage("com.swaglabsmobileapp");
         options.setAppActivity("com.swaglabsmobileapp.MainActivity");
 //        options.nativeWebScreenshot();
 
-//        options.autoGrantPermissions();
+        options.autoGrantPermissions();
 //        options.setIgnoreHiddenApiPolicyError(true);
 //        options.setAppWaitForLaunch(true);
-//        options.setAppWaitDuration(Duration.ofMillis(50000));
+        options.setAppWaitDuration(Duration.ofMillis(50000));
 
 
         // calling the andorid driver to run the app
@@ -44,7 +44,12 @@ public class HandlingGesturesDemo_SingleTap {
 
         driver.findElement(AppiumBy.xpath("//android.widget.EditText[@content-desc=\"test-Password\"]")).sendKeys("secret_sauce");
 
+        //MobileElement this feature is deprecated from Appium 2.x version
+
+        //best practice to reuse the element we use WebElement
         WebElement loginbutton = driver.findElement(AppiumBy.xpath("//android.widget.TextView[@text=\"LOGIN\"]"));
+
+        singleTap(loginbutton, driver);
         //Perform a tap action
         Thread.sleep(5000);
 //        singleTap(loginbutton, driver);
@@ -71,6 +76,8 @@ public class HandlingGesturesDemo_SingleTap {
 
 
     // to get the center of the element
+    // click the button on the center or the edges of the button or the any place of the button
+    // this will be defined by the below method
     public static Point getCenterElement(Point location, Dimension dim) {
         return new Point(location.getX() + dim.getWidth() / 2, location.getY() + dim.getHeight() / 2);
 
@@ -81,13 +88,13 @@ public class HandlingGesturesDemo_SingleTap {
         Point location = element.getLocation();
         System.out.println("the location the element on the deivce " + location);
 
-        // get the width and height of the element onthe screen
+        // get the width and height of the element on the screen
         Dimension size = element.getSize();
         System.out.println("the size the element " + size);
 
         // get the center point of the element
         Point centerofelement = getCenterElement(location, size);
-        System.out.println("center of the element : " + centerofelement);
+        System.out.println("center of the element : " + centerofelement);// center point
 
         // we need to perform a touch action
         //w3c Actions  - this is avialabel from 2.x Appium
@@ -99,13 +106,12 @@ public class HandlingGesturesDemo_SingleTap {
 //                // this simulates the tap onthe element
                 .addAction(touchaction1.createPointerDown(PointerInput.MouseButton.LEFT.asArg()))
 //                // this simulates the tap duration
-                .addAction(new Pause(touchaction1, Duration.ofMillis(500)))
+                .addAction(new Pause(touchaction1, Duration.ofMillis(200)))
 //                // this simulates the relase of tap/finger on the element
                 .addAction(touchaction1.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
 //
 
-//
-//        // this will perfomr the series of actions
+//        // this will perform the series of actions
         driver.perform(Collections.singletonList(seq));
     }
 }

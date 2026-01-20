@@ -26,6 +26,7 @@ public class RunAppinBackground {
         // calling the andorid driver to run the app̵
         AndroidDriver driver = new AndroidDriver(new URL("http://127.0.0.1:4723"), options);
 
+        //first app to open - api demos app
         WebElement element = driver.findElement(AppiumBy.xpath("//android.widget.TextView[@text='Views']"));
         element.click();
 

@@ -15,6 +15,8 @@ import org.openqa.selenium.interactions.Pause;
 import org.openqa.selenium.interactions.PointerInput;
 import org.openqa.selenium.interactions.Sequence;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
@@ -23,7 +25,7 @@ import java.util.Set;
 
 public class HandlingGestureDemo_Android_Zoom {
 
-    public static void main(String[] args) throws MalformedURLException, InterruptedException {
+    public static void main(String[] args) throws IOException, InterruptedException {
         UiAutomator2Options options = new UiAutomator2Options();
         options.setPlatformName("Android");
         options.setUdid("29221JEGR00379");
@@ -66,22 +68,25 @@ public class HandlingGestureDemo_Android_Zoom {
         act.click(element2).build().perform();
 
 
-        Thread.sleep(10000);
+        Thread.sleep(1000);
 
-        Set<String> handles = driver.getContextHandles();
+        Set<String> handles = driver.getContextHandles();// will store the navtive app and the webview content
         for (String webviewcontent : handles) {
             System.out.println("available data : " + webviewcontent);
             if (webviewcontent.startsWith("WEBVIEW")) {
                 driver.context("WEBVIEW_com.swaglabsmobileapp");
-                System.out.println(driver.getPageSource());// get the web page source
-                driver.findElement(By.xpath("//textarea[@name='q']")).sendKeys("appium");
+                String pagedata = driver.getPageSource();// get the web page source
+                FileWriter fw = new FileWriter(System.getProperty("user.dir") + "/src/test/resources/signaturepad.html");
+                fw.write(pagedata);
+                fw.close();
                 break;
             }
 
         }
 
         //multi touch on th element
-        WebElement element3 = driver.findElement(AppiumBy.xpath("//android.view.View[@resource-id=\"signature-pad\"]//android.widget.Image"));
+//        WebElement element3 = driver.findElement(AppiumBy.xpath("//android.view.View[@resource-id=\"signature-pad\"]//android.widget.Image"));
+        WebElement element3 = driver.findElement(AppiumBy.xpath("//div[@id='signature-pad']/div[@class='m-signature-pad--body']"));
 
         Point centerofelememnt = getCenterElement(element3.getLocation(), element3.getSize());
 
@@ -90,7 +95,7 @@ public class HandlingGestureDemo_Android_Zoom {
                 .addAction(finger1.createPointerMove(Duration.ZERO, PointerInput.Origin.viewport(), centerofelememnt))
                 .addAction(finger1.createPointerDown(PointerInput.MouseButton.LEFT.asArg()))
                 .addAction(new Pause(finger1, Duration.ofMillis(200)))
-                .addAction(finger1.createPointerMove(Duration.ofMillis(200), PointerInput.Origin.viewport(), centerofelememnt.getX() + 1000, centerofelememnt.getY() - 100))
+                .addAction(finger1.createPointerMove(Duration.ofMillis(200), PointerInput.Origin.viewport(), centerofelememnt.getX() + 100, centerofelememnt.getY() - 100))
                 .addAction(finger1.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
 
         PointerInput finger2 = new PointerInput(PointerInput.Kind.TOUCH, "touch2");
@@ -98,7 +103,7 @@ public class HandlingGestureDemo_Android_Zoom {
                 .addAction(finger2.createPointerMove(Duration.ZERO, PointerInput.Origin.viewport(), centerofelememnt))
                 .addAction(finger2.createPointerDown(PointerInput.MouseButton.LEFT.asArg()))
                 .addAction(new Pause(finger1, Duration.ofMillis(200)))
-                .addAction(finger2.createPointerMove(Duration.ofMillis(200), PointerInput.Origin.viewport(), centerofelememnt.getX() - 150, centerofelememnt.getY() + 1500))
+                .addAction(finger2.createPointerMove(Duration.ofMillis(200), PointerInput.Origin.viewport(), centerofelememnt.getX() - 150, centerofelememnt.getY() + 150))
                 .addAction(finger2.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
 
         driver.perform(Arrays.asList(seq1, seq2));

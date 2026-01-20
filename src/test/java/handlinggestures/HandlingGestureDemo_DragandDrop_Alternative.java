@@ -23,7 +23,7 @@ public class HandlingGestureDemo_DragandDrop_Alternative {
 
         UiAutomator2Options options = new UiAutomator2Options();
         options.setPlatformName("Android");
-        options.setDeviceName("emulator-5554");
+        options.setDeviceName("29221JEGR00379");
         options.setAutomationName(AutomationName.ANDROID_UIAUTOMATOR2);
 //        options.setApp("/Users/aravindbalaji/Documents/Appium/Sample App/android-app.apk");
 //        options.setAppPackage("com.saucelabs.mydemoapp.rn");
@@ -53,9 +53,9 @@ public class HandlingGestureDemo_DragandDrop_Alternative {
         WebElement destination = driver.findElement(AppiumBy.id("io.appium.android.apis:id/drag_dot_2"));
 
 
-        //Drag and drop alternative - only for web not on mobile
-//        Actions act = new Actions(driver);
-//        act.clickAndHold(source).moveToElement(destination).release(destination).build().perform();
+        //Drag and drop alternative - only for web/webkit webview not on native mobile
+        Actions act = new Actions(driver);
+        act.clickAndHold(source).moveToElement(destination).release(destination).build().perform();
 
         // alternative approach but within the same Actions class
 //        act.dragAndDrop(source, destination).build().perform();

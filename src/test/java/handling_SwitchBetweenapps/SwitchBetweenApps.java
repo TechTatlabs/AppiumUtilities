@@ -34,6 +34,7 @@ public class SwitchBetweenApps {
 
         WebElement element = driver.findElement(AppiumBy.xpath("//android.widget.TextView[@text='Views']"));
         element.click();
+        // the below command will put he app in background it is not useful to switching the app
 //        driver.runAppInBackground(Duration.ofSeconds(60));
 
 
@@ -50,6 +51,7 @@ public class SwitchBetweenApps {
         System.out.println("the app is switched : " + element2.isDisplayed());
         element2.click();
         Thread.sleep(5000);
+        // terminate app int he background use the below command driver.terminateApp("packagename")
         driver.terminateApp("com.flipkart.android");
 
         Thread.sleep(5000);
