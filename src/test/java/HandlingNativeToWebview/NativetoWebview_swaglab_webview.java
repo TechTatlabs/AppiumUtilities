@@ -8,17 +8,23 @@ import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
 import io.appium.java_client.service.local.flags.GeneralServerFlag;
 import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
 import org.openqa.selenium.WebElement;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
+import java.util.Base64;
 import java.util.Set;
 
 public class NativetoWebview_swaglab_webview {
 
     //    public static AndroidDriver driver;
-    public static void main(String[] args) throws MalformedURLException, InterruptedException {
+    public static void main(String[] args) throws IOException, InterruptedException {
 //        AppiumServiceBuilder builder = new AppiumServiceBuilder().withArgument(GeneralServerFlag.ALLOW_INSECURE,"chromedriver_autodownload");
 
 //        AppiumDriverLocalService service = AppiumDriverLocalService.buildService(builder);
@@ -60,6 +66,14 @@ public class NativetoWebview_swaglab_webview {
 
         driver.findElement(AppiumBy.xpath("//android.widget.EditText[@content-desc=\"test-enter a https url here...\"]")).sendKeys("https://www.bing.com");
         Thread.sleep(5000);
+        //store the screenshot as base64 and save in resources folder
+        String base64screenshot =
+                driver.findElement(AppiumBy.xpath("//android.view.ViewGroup[@content-desc=\"test-GO TO SITE\"]")).getScreenshotAs(OutputType.BASE64);
+
+        byte[] imageasbyte = Base64.getDecoder().decode(base64screenshot);
+        FileOutputStream fs = new FileOutputStream(new File(System.getProperty("user.dir") + "/src/test/resources/scrrenshot_1.png"));
+        fs.write(imageasbyte);
+
         driver.findElement(AppiumBy.xpath("//android.view.ViewGroup[@content-desc=\"test-GO TO SITE\"]")).click();
         Thread.sleep(5000);
 

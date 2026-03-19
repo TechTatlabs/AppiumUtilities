@@ -21,22 +21,22 @@ public class HandlingElementsBasics_Android {
         options.setAppPackage("io.appium.android.apis");
 //        options.setAutoGrantPermissions(true);
         options.autoGrantPermissions();
-        options.setCapability("","");
+        options.setCapability("", "");
 
         AndroidDriver driver = new AndroidDriver(new URL("http://127.0.0.1:4723/"), options);
 
         Thread.sleep(5000);
 
+        // to avoid redunduncy of thelement we store the element in the webelement datatype
         WebElement accessibilitybutton = driver.findElement(AppiumBy.xpath("//android.widget.TextView[@content-desc='Accessibility']"));
 
-        System.out.println(accessibilitybutton.isDisplayed());
-        System.out.println(accessibilitybutton.isEnabled());
-        System.out.println(accessibilitybutton.getText());
-        System.out.println(accessibilitybutton.getAttribute("resource-id"));
+        System.out.println("to cehcke the element is displayed : " + accessibilitybutton.isDisplayed());
+        System.out.println("to cehcke the element is enabled : " + accessibilitybutton.isEnabled());
+        System.out.println("to cehcke the element has text : " + accessibilitybutton.getText());
+        System.out.println("to cehcke the element has attribuites value : " + accessibilitybutton.getAttribute("resource-id"));
 
         Thread.sleep(5000);
         driver.quit();
-
 
 
     }
