@@ -52,7 +52,7 @@ public class HandlingGesturesDemo_SingleTap {
         singleTap(loginbutton, driver);
         //Perform a tap action
         Thread.sleep(5000);
-//        singleTap(loginbutton, driver);
+        singleTap(loginbutton, driver);
 //        alternative way - 1
 //        loginbutton.click();
 

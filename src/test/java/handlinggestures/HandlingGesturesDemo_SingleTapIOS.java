@@ -23,14 +23,14 @@ public class HandlingGesturesDemo_SingleTapIOS {
 
     public static void main(String[] args) throws MalformedURLException, InterruptedException {
         XCUITestOptions options = new XCUITestOptions();
-        options.setUdid("27139D21-EB13-48EE-9C88-C786E92AB0E0");
+        options.setUdid("4B733329-44E4-4712-9AD2-8EC4E24CF059");
         options.setForceAppLaunch(true);
 //        options.setPlatformVersion("17.5");
 //        options.setUdid("62622A19-BE5E-45CE-AF31-EDE73B855E60");
         options.setUseNewWDA(false);
         options.setPlatformName(AutomationName.IOS_XCUI_TEST);
 //        options.setApp("/Users/aravindbalaji/Documents/Appium/SampleApp/ios-app.zip");
-        options.setBundleId("com.moataz.dailycheck");
+        options.setBundleId("com.saucelabs.mydemo.app.ios");
 
 
         // calling the andorid driver to run the app
@@ -41,9 +41,7 @@ public class HandlingGesturesDemo_SingleTapIOS {
 //        System.out.println("to chec kthe attribute vbalue :" +driver.findElement(AppiumBy.xpath("//android.view.ViewGroup[@content-desc='open menu']")).getAttribute("content-desc"));
 //        WebElement element = driver.findElement(AppiumBy.xpath("//android.view.ViewGroup[@content-desc='open menu']/android.widget.ImageView"));
 
-        WebElement element = driver.findElement(AppiumBy.xpath("//XCUIElementTypeButton[@name=\"plus.circle\"]"));
-
-
+        WebElement element = driver.findElement(AppiumBy.xpath("//XCUIElementTypeButton[@name=\"More-tab-item\"]"));
 
 
         //Perform a tap action
@@ -53,12 +51,17 @@ public class HandlingGesturesDemo_SingleTapIOS {
         // normal selenium click this shoukld also work
 //        element.click();
 
-        Actions action = new Actions(driver);
-        action.click(element). build().perform();
+//        Actions action = new Actions(driver);
+//        action.click(element). build().perform();
 
         //Single tab gesture
-//        Thread.sleep(5000);
-//        singleTap(element, driver);
+        Thread.sleep(5000);
+        // custome method - to tap on the element
+        singleTap(element, driver);
+        Thread.sleep(5000);
+
+        WebElement loginbutton = driver.findElement(AppiumBy.xpath("//XCUIElementTypeButton[@name=\"LogOut-menu-item\"]"));
+        singleTap(loginbutton, driver);
 
         Thread.sleep(5000);
         driver.quit();
@@ -68,13 +71,12 @@ public class HandlingGesturesDemo_SingleTapIOS {
     // to get the center of the element
     public static Point getCenterElement(Point location, Dimension dim) {
         return new Point(location.getX() + dim.getWidth() / 2, location.getY() + dim.getHeight() / 2);
-
     }
 
     public static void singleTap(WebElement element, IOSDriver driver) {
-        Point location = element.getLocation();
+        Point location = element.getLocation(); // this gets the locaiton of the element in the screen
         System.out.println("the location the element " + location);
-        Dimension size = element.getSize();
+        Dimension size = element.getSize();// get the dimention of the element
         System.out.println("the size the element " + size);
         Point centerofelement = getCenterElement(location, size);
 

@@ -15,13 +15,14 @@ public class CapabilitiesCheck_Ios {
     public static void main(String[] args) throws MalformedURLException, InterruptedException {
         XCUITestOptions options = new XCUITestOptions();
         options.setPlatformName("IOS");
-        options.setBundleId("com.saucelabs.mydemoapp.rn"); // you are going to test native app
+        options.setBundleId("com.saucelabs.mydemo.app.ios"); // you are going to test native app
         options.setAutomationName(AutomationName.IOS_XCUI_TEST);
-//        options.setApp("/Users/aravindbalaji/Documents/Appium/Sample App/android-app.apk");
-//        options.setApp("/Users/aravindbalaji/Documents/Appium/SampleApp/iOS-Simulator-MyRNDemoApp.1.3.0-162.zip");
 
-        options.setUdid("27139D21-EB13-48EE-9C88-C786E92AB0E0");
-        options.setAutoAcceptAlerts(true);// any pop up comes
+//        options.setApp("/Users/aravindbalaji/Documents/Appium/SampleApp/My_Demo_App_IOS_Simulator.zip");
+
+        options.setUdid("4B733329-44E4-4712-9AD2-8EC4E24CF059");
+        // any pop up comes - based onlocaiton  or ios system specific pop ups
+        options.setAutoAcceptAlerts(true);
 //        options.withBrowserName("Safari"); // you are going to test something on mobile browser
 //        options.setAutoWebview(true);
         options.setUseNewWDA(false);// this will not install webdriver agent agiain and again it will try to re-use if the webdriver agent is valid
@@ -29,9 +30,11 @@ public class CapabilitiesCheck_Ios {
         options.setNewCommandTimeout(Duration.ofSeconds(40));// any command that will be execute will have default timed out - max time
 //        options.setCapability("","");// any custom capability for hte app you can mentionhere
 
-//        options.setDeviceName("");// Not recomended to use instead use setUdid - Andrioid if we do not meniton the udid it might run on any device that is connnect
+        // Not recomended to use instead use setUdid - Andrioid if we do not meniton the udid it might run on any device that is connnect
+//        options.setDeviceName("");
 
-        options.setFullReset(true);
+        // do not use this as this will do a full reset of your simulator/real devices
+//        options.setFullReset(true);
 
 
 

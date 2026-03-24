@@ -15,22 +15,24 @@ public class CapabilitiesCheck_Android {
         UiAutomator2Options options = new UiAutomator2Options();
         options.setPlatformName("Android");
         options.setUdid("29221JEGR00379");
+//        options.setDeviceName("Pixel 9a");
         options.setAutomationName(AutomationName.ANDROID_UIAUTOMATOR2);
 //        options.setApp("/Users/aravindbalaji/Documents/Appium/Sample App/android-app.apk");
-        options.setAppPackage("io.appium.android.apis");
-        options.setAppActivity("io.appium.android.apis.views");
+//        options.setAppPackage("io.appium.android.apis");
+//        options.setAppActivity("io.appium.android.apis.");
 //        options.setAppActivity("io.appium.android.apis.ApiDemos.Media");
-//        options.setApp("/Users/aravindbalaji/Documents/Appium/SampleApp/Android.SauceLabs.Mobile.Sample.app.2.7.1.apk");
+
+        options.setAppPackage("co.motovolt.motovoltapp");
+        options.setAppActivity("co.motovolt.motovoltapp.MainActivity");
 
 //        options.autoGrantPermissions();
-        options.setAutoGrantPermissions(true);
+        options.setAutoGrantPermissions(false);
         options.setAppWaitDuration(Duration.ofSeconds(60));
         options.setNewCommandTimeout(Duration.ofSeconds(40));
         options.setAppWaitForLaunch(true);
-        options.setFullReset(true);
+//        options.fullReset();
 //        options.setCapability("","");
 //        options.
-
 
 
         // calling the andorid driver to run the app̵
