@@ -49,10 +49,10 @@ public class HandlingGesturesDemo_SingleTap {
         //best practice to reuse the element we use WebElement
         WebElement loginbutton = driver.findElement(AppiumBy.xpath("//android.widget.TextView[@text=\"LOGIN\"]"));
 
-        singleTap(loginbutton, driver);
+//        singleTap(loginbutton, driver);
         //Perform a tap action
         Thread.sleep(5000);
-        singleTap(loginbutton, driver);
+//        singleTap(loginbutton, driver);
 //        alternative way - 1
 //        loginbutton.click();
 
@@ -65,8 +65,8 @@ public class HandlingGesturesDemo_SingleTap {
 //        }
 
         //alternative way -2
-//        Actions act = new Actions(driver);
-//        act.moveToElement(loginbutton).click().build().perform();
+        Actions act = new Actions(driver);
+        act.moveToElement(loginbutton).click().build().perform();
 //        act.click(loginbutton).build().perform();
 
 

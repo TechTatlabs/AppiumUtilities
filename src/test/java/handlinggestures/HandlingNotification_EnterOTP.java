@@ -29,40 +29,88 @@ public class HandlingNotification_EnterOTP {
         options.setAppActivity("com.flipkart.android.activity.HomeFragmentHolderActivity");
         options.setAppWaitForLaunch(true);
         options.setAppWaitDuration(Duration.ofMillis(50000));
+        // below cpability will handle the locaiton based pop up when the app launches
         options.setAutoGrantPermissions(true);
 
         // calling the andorid driver to run the app
         AndroidDriver driver = new AndroidDriver(new URL("http://127.0.0.1:4723"), options);
+        // the below wait time willwait till the app source is completely loaded
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
 
         // this will clear the content of the notifications
         Thread.sleep(5000);
-//        driver.openNotifications();// open the notificaiton panel
-//        try {
-//            driver.findElement(AppiumBy.xpath("//*[@text=\"Clear all\"]")).click();
-//        } catch (Exception e) {
-//            System.out.println("no clear button visible");
-//            swipeUp(driver);
-//        }
-//
-//        Thread.sleep(5000);
+        driver.openNotifications();// open the notificaiton panel
+        try {
+            driver.findElement(AppiumBy.xpath("//*[@text=\"Clear all\"]")).click();
+        } catch (Exception e) {
+            System.out.println("no clear button visible");
+            swipeUp(driver);
+        }
+
+        Thread.sleep(5000);
 
 //        driver.findElement(AppiumBy.xpath("(//android.widget.ImageView[@resource-id=\"com.flipkart.android:id/iv_checkbox\"])[4]")).click();
         driver.findElement(AppiumBy.xpath("//android.widget.TextView[@resource-id=\"com.flipkart.android:id/tv_text\" and @text=\"English\"]/following-sibling::android.widget.ImageView")).click();
-        Thread.sleep(10000);
-
-
-        // clicking the link use email id
-        driver.findElement(AppiumBy.xpath("//android.widget.TextView[@text='Use Email-ID']")).click();
-
         Thread.sleep(5000);
-        //send the email id to the text field
-        driver.findElement(AppiumBy.xpath("//android.widget.EditText[@content-desc=\"Email ID\"]")).sendKeys("aravind_sparrow@yahoo.com");
 
-        Thread.sleep(5000);
+        //enter the mobilenumber
+        WebElement ph = driver.findElement(AppiumBy.xpath("//android.widget.EditText[@content-desc=\"Phone Number\"]"));
+        ph.click();
+        // Keyboard action simulator to enter the phone number
+        driver.pressKey(new KeyEvent(AndroidKey.DIGIT_8));
+        driver.pressKey(new KeyEvent(AndroidKey.DIGIT_9));
+        driver.pressKey(new KeyEvent(AndroidKey.DIGIT_3));
+        driver.pressKey(new KeyEvent(AndroidKey.DIGIT_9));
+        driver.pressKey(new KeyEvent(AndroidKey.DIGIT_6));
+        driver.pressKey(new KeyEvent(AndroidKey.DIGIT_2));
+        driver.pressKey(new KeyEvent(AndroidKey.DIGIT_4));
+        driver.pressKey(new KeyEvent(AndroidKey.DIGIT_4));
+        driver.pressKey(new KeyEvent(AndroidKey.DIGIT_4));
+        driver.pressKey(new KeyEvent(AndroidKey.DIGIT_6));
+
+
+        //click the continue button
         driver.findElement(AppiumBy.xpath("//android.widget.TextView[@resource-id=\"com.flipkart.android:id/button\"]")).click();
 
+        Thread.sleep(10000);
+        //to check th otp
+        driver.openNotifications();
         Thread.sleep(5000);
+
+        // capture the otp fromthe notification
+        String otpmessage = driver.findElement(AppiumBy.xpath("//*[contains(@text,'OTP')]")).getText();
+        System.out.println("the complete otp message : " + otpmessage);
+        // we use a regex to validate or extract  the pattern related to otp
+        Pattern pattern = Pattern.compile("[0-9]+");
+        Matcher matcher = pattern.matcher(otpmessage);
+        String smsotp = null;
+        while (matcher.find()) {
+            System.out.println("data from sms: " + matcher.toString());
+            if (matcher.group().toString().length() == 6) {
+                String otpextract = matcher.group();
+                System.out.println("extracted data from sms : " + matcher.group());
+                smsotp = matcher.group();
+            }
+        }
+        Thread.sleep(5000);
+        //swipeUp(driver);
+        //alternative way to go back to the app or the screen
+        driver.navigate().back();
+        Thread.sleep(5000);
+
+        driver.findElement(AppiumBy.xpath("//android.widget.EditText[@resource-id=\"com.flipkart.android:id/otp_view\"]")).sendKeys(smsotp);
+
+        // clicking the link use email id
+//        driver.findElement(AppiumBy.xpath("//android.widget.TextView[@text='Use Email-ID']")).click();
+
+//        Thread.sleep(5000);
+        //send the email id to the text field
+//        driver.findElement(AppiumBy.xpath("//android.widget.EditText[@content-desc=\"Email ID\"]")).sendKeys("aravind_sparrow@yahoo.com");
+
+//        Thread.sleep(5000);
+//        driver.findElement(AppiumBy.xpath("//android.widget.TextView[@resource-id=\"com.flipkart.android:id/button\"]")).click();
+
+//        Thread.sleep(5000);
 
 //enter the otp
 
@@ -74,19 +122,19 @@ public class HandlingNotification_EnterOTP {
 //        driver.findElement(AppiumBy.xpath("//android.widget.EditText[@resource-id=\"com.flipkart.android:id/otp_view\"]")).sendKeys("111111");
 
         // if sendkeys doesnt work
-        if (driver.isKeyboardShown()) {
-            System.out.println("keyboard is shown");
+//        if (driver.isKeyboardShown()) {
+//            System.out.println("keyboard is shown");
 //            driver.hideKeyboard();
-        }
-        // this is specific to andoird where the keyboard simulation is replicated by the below code
-        // if keyboard isnot enabled by default and sendkeys doesnt work
-//        driver.findElement(AppiumBy.xpath("//android.widget.EditText[@resource-id=\"com.flipkart.android:id/otp_view\"]")).click();
-        driver.pressKey(new KeyEvent(AndroidKey.DIGIT_1));
-        driver.pressKey(new KeyEvent(AndroidKey.DIGIT_2));
-        driver.pressKey(new KeyEvent(AndroidKey.DIGIT_3));
-        driver.pressKey(new KeyEvent(AndroidKey.DIGIT_4));
-        driver.pressKey(new KeyEvent(AndroidKey.DIGIT_5));
-        driver.pressKey(new KeyEvent(AndroidKey.DIGIT_6));
+//        }
+//        // this is specific to andoird where the keyboard simulation is replicated by the below code
+//        // if keyboard isnot enabled by default and sendkeys doesnt work
+////        driver.findElement(AppiumBy.xpath("//android.widget.EditText[@resource-id=\"com.flipkart.android:id/otp_view"]")).click();
+//        driver.pressKey(new KeyEvent(AndroidKey.DIGIT_1));
+//        driver.pressKey(new KeyEvent(AndroidKey.DIGIT_2));
+//        driver.pressKey(new KeyEvent(AndroidKey.DIGIT_3));
+//        driver.pressKey(new KeyEvent(AndroidKey.DIGIT_4));
+//        driver.pressKey(new KeyEvent(AndroidKey.DIGIT_5));
+//        driver.pressKey(new KeyEvent(AndroidKey.DIGIT_6));
 
         Thread.sleep(5000);
         driver.quit();
