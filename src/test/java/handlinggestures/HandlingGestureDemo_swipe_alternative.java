@@ -26,10 +26,7 @@ public class HandlingGestureDemo_swipe_alternative {
         options.setPlatformName("Android");
         options.setDeviceName("29221JEGR00379");
         options.setAutomationName(AutomationName.ANDROID_UIAUTOMATOR2);
-//        options.setApp("/Users/aravindbalaji/Documents/Appium/Sample App/android-app.apk");
-//        options.setAppPackage("com.saucelabs.mydemoapp.rn");
-//        options.setAppActivity("com.saucelabs.mydemoapp.rn.MainActivity");
-//        options.setApp("/Users/aravindbalaji/Documents/Appium/Sample App/Android.SauceLabs.Mobile.Sample.app.2.7.1.apk");
+
 
         options.setAppPackage("io.appium.android.apis");
         options.setAppActivity("io.appium.android.apis.ApiDemos");
@@ -44,8 +41,10 @@ public class HandlingGestureDemo_swipe_alternative {
         element.click();
 
         // alternative1
+        // scroll down till the element is visible and click on it
+        // it searches through the android code till the element is existing
         driver.findElement(new AppiumBy.ByAndroidUIAutomator
-                ("new UiScrollable(new UiSelector().scrollable(true).instance(0)).scrollIntoView(new UiSelector().text(\"TextFields\").instance(0))"));
+                ("new UiScrollable(new UiSelector().scrollable(true).instance(0)).scrollIntoView(new UiSelector().text(\"TextFields\"))")).click();
 
 
         // alternative2

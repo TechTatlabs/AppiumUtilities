@@ -5,6 +5,7 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.options.UiAutomator2Options;
 import io.appium.java_client.remote.AutomationName;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -18,9 +19,10 @@ public class WebviewCheck_chrome {
         options.setPlatformName("Android");
         options.setUdid("29221JEGR00379");
         options.setAutomationName(AutomationName.ANDROID_UIAUTOMATOR2);
-        // to open chrom browser inside the device below 2 options are mandatory
+        // to open chrome browser inside the device below 2 options are mandatory
         options.withBrowserName("Chrome");
-//        options.setChromedriverExecutable(System.getProperty("user.dir") + "/src/test/resources/browser/chromedriver_141");
+        // if the automated way does not work use the below manual way to use the chromedriver
+        options.setChromedriverExecutable(System.getProperty("user.dir") + "/src/test/resources/browser/chromedriver_146");
 
 
         AndroidDriver driver = new AndroidDriver(new URL("http://127.0.0.1:4723/"), options);
@@ -29,6 +31,8 @@ public class WebviewCheck_chrome {
         Thread.sleep(5000);
         System.out.println(driver.getPageSource());
         driver.findElement(By.xpath("//textarea[@id='sb_form_q']")).sendKeys("appium");
+        Thread.sleep(5000);
+        driver.findElement(By.xpath("//textarea[@id='sb_form_q']")).sendKeys(Keys.ENTER);
         Thread.sleep(5000);
         driver.quit();
 

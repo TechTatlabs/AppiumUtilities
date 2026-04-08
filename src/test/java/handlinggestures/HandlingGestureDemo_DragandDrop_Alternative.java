@@ -33,7 +33,6 @@ public class HandlingGestureDemo_DragandDrop_Alternative {
         options.setAppPackage("io.appium.android.apis");
         options.setAppActivity("io.appium.android.apis.ApiDemos");
 
-//        options.setApp("/Users/aravindbalaji/Documents/Appium/Sample App/Android.SauceLabs.Mobile.Sample.app.2.7.1.apk");
 
         // calling the andorid driver to run the app̵
         AndroidDriver driver = new AndroidDriver(new URL("http://127.0.0.1:4723"), options);
@@ -54,13 +53,19 @@ public class HandlingGestureDemo_DragandDrop_Alternative {
 
 
         //Drag and drop alternative - only for web/webkit webview not on native mobile
+        //the below code is base don the selenium jar files called interactions
+        //always the actions class should have a build() and perform() - the acitons will not be perfomrs
+        // build() - compile
+        //perform() - execute
         Actions act = new Actions(driver);
-        act.clickAndHold(source).moveToElement(destination).release(destination).build().perform();
+        act.clickAndHold(source).pause(Duration.ofMillis(1000))
+                .moveToElement(destination).pause(Duration.ofMillis(1000))
+                .release(destination).build().perform();
 
         // alternative approach but within the same Actions class
 //        act.dragAndDrop(source, destination).build().perform();
 
-        System.out.println(driver.findElement(AppiumBy.xpath("//android.widget.TextView[@text='Dropped!']")).isDisplayed());
+        System.out.println("verify the success message : " + driver.findElement(AppiumBy.xpath("//android.widget.TextView[@text='Dropped!']")).isDisplayed());
 
         Thread.sleep(3000);
         driver.quit();

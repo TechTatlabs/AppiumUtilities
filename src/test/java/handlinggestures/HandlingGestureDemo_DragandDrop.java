@@ -22,8 +22,6 @@ import java.util.Collections;
 public class HandlingGestureDemo_DragandDrop {
 
     public static void main(String[] args) throws MalformedURLException, InterruptedException {
-
-
         UiAutomator2Options options = new UiAutomator2Options();
         options.setPlatformName("Android");
         options.setUdid("29221JEGR00379");
@@ -59,18 +57,22 @@ public class HandlingGestureDemo_DragandDrop {
 
 
         //Drag and drop
-        Point sourcepointer = getCenterElement(source.getLocation(), source.getSize());
+        //source.getLocation() - thsi will get the elements position onthe screen
+        //source.getSize() - thsi will get the element hight and width
+        Point sourcepointer = getCenterElement(source.getLocation(), source.getSize());// the output of this willbe a x and y position
         Point destinationpointer = getCenterElement(source.getLocation(), destination.getSize());
 
         PointerInput finger1 = new PointerInput(PointerInput.Kind.TOUCH, "touch1");
         Sequence seq = new Sequence(finger1, 1)
                 .addAction(finger1.createPointerMove(Duration.ZERO, PointerInput.Origin.viewport(), sourcepointer))
                 .addAction(finger1.createPointerDown(PointerInput.MouseButton.LEFT.asArg()))
-                .addAction(new Pause(finger1, Duration.ofMillis(500)))
+                .addAction(new Pause(finger1, Duration.ofMillis(1000)))
                 .addAction(finger1.createPointerMove(Duration.ofMillis(100), PointerInput.Origin.viewport(), destinationpointer))
                 .addAction(finger1.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
 
+        // this will perform the addactions in sequence
         driver.perform(Collections.singletonList(seq));
+
         Thread.sleep(5000);
 
         System.out.println(driver.findElement(AppiumBy.xpath("//android.widget.TextView[@text='Dropped!']")).isDisplayed());

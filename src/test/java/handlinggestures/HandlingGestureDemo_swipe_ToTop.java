@@ -83,10 +83,10 @@ public class HandlingGestureDemo_swipe_ToTop {
 
         // sequence represents the sequence of action we are going to do
         Sequence seq = new Sequence(finger1,1)
-                .addAction(finger1.createPointerMove(Duration.ZERO,PointerInput.Origin.viewport(),start1,start2))
+                .addAction(finger1.createPointerMove(Duration.ZERO,PointerInput.Origin.viewport(),start1,start2))//source to move down
                 .addAction(finger1.createPointerDown(PointerInput.MouseButton.LEFT.asArg()))
                 .addAction(new Pause(finger1,Duration.ofMillis(500)))
-                .addAction(finger1.createPointerMove(Duration.ofMillis(100),PointerInput.Origin.viewport(), end2, end1))
+                .addAction(finger1.createPointerMove(Duration.ofMillis(100),PointerInput.Origin.viewport(), end2, end1))//destination to move up
                 .addAction(finger1.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
         driver.perform(Collections.singletonList(seq));
         System.out.println("-----Swipe Ended-----");

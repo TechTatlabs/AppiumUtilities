@@ -6,8 +6,12 @@ import io.appium.java_client.android.options.UiAutomator2Options;
 import io.appium.java_client.remote.AutomationName;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.Point;
 
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Set;
@@ -15,7 +19,7 @@ import java.util.Set;
 public class NativetoWebview_manully_Chromedriverexe {
 
     //    public static AndroidDriver driver;
-    public static void main(String[] args) throws MalformedURLException, InterruptedException {
+    public static void main(String[] args) throws IOException, InterruptedException {
         UiAutomator2Options options = new UiAutomator2Options();
         options.setPlatformName("Android");
         options.setUdid("29221JEGR00379");
@@ -32,7 +36,8 @@ public class NativetoWebview_manully_Chromedriverexe {
 
 //        options.setIgnoreHiddenApiPolicyError(true);
 //        options.setAutoWebview(true);
-        options.setChromedriverExecutable(System.getProperty("user.dir") + "/src/test/resources/browser/chromedriver_174");
+        // we manually add the path of the chrome driver to take and run
+        options.setChromedriverExecutable(System.getProperty("user.dir") + "/src/test/resources/browser/chromedriver_146");
 //        options.setCapability("chromedriverAutodownload",true);
 
 
@@ -71,8 +76,10 @@ public class NativetoWebview_manully_Chromedriverexe {
         for (String webviewcontent : handles) {
             if (webviewcontent.startsWith("WEBVIEW")) {
                 driver.context("WEBVIEW_com.swaglabsmobileapp");
-                System.out.println(driver.getPageSource());// get the web page source
+                String pageSource = driver.getPageSource();// get the web page source
+                witeFile(pageSource, System.getProperty("user.dir") + "/src/test/resources/pagesource/webviewcontent.html");
                 driver.findElement(By.xpath("//textarea[@name='q']")).sendKeys("appium");
+                driver.findElement(By.xpath("//textarea[@name='q']")).sendKeys(Keys.ENTER);
                 break;
             }
         }
@@ -95,6 +102,17 @@ public class NativetoWebview_manully_Chromedriverexe {
 
     public static Point getCenterElement(Point location, Dimension dim) {
         return new Point(location.getX() + dim.getWidth() / 2, location.getY() + dim.getHeight() / 2);
+    }
+
+
+    public static void witeFile(String data, String path) throws IOException {
+        try {
+            FileWriter fs = new FileWriter(path);
+            fs.write(data);
+            fs.close();
+        } catch (Exception e) {
+            throw new IOException();
+        }
 
     }
 }

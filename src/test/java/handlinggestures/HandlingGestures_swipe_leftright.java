@@ -72,9 +72,7 @@ public class HandlingGestures_swipe_leftright {
     public static void swipeLeft(AndroidDriver driver, WebElement ele) {
         int startX = ele.getRect().x + (ele.getSize().width * 3 / 4);// source width
         int startY = ele.getRect().y + (ele.getSize().height / 2);// source height
-
         System.out.println("the coordinates for start position :" + startX + ", " + startY);
-
         int endX = ele.getRect().x + (ele.getSize().width / 4);// destination width
         int endY = ele.getRect().y + (ele.getSize().height / 2); // destination height
         System.out.println("the coordinates for end position :" + endX + ", " + endY);
@@ -82,15 +80,14 @@ public class HandlingGestures_swipe_leftright {
 
         PointerInput finger1 = new PointerInput(PointerInput.Kind.TOUCH, "touch1");
         Sequence seq = new Sequence(finger1, 1)
-                .addAction(finger1.createPointerMove(Duration.ZERO, PointerInput.Origin.viewport(), startX, startY))
+                .addAction(finger1.createPointerMove(Duration.ZERO, PointerInput.Origin.viewport(), startX, startY))//source
                 .addAction(finger1.createPointerDown(PointerInput.MouseButton.LEFT.asArg()))
                 .addAction(new Pause(finger1, Duration.ofMillis(500)))
-                .addAction(finger1.createPointerMove(Duration.ofMillis(100), PointerInput.Origin.viewport(), endX, endY))
+                .addAction(finger1.createPointerMove(Duration.ofMillis(100), PointerInput.Origin.viewport(), endX, endY))//destination
                 .addAction(finger1.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
         driver.perform(Arrays.asList(seq));
         System.out.println("-----Swipe left Ended-----");
     }
-
 
     public static void swipeRight(AndroidDriver driver, WebElement ele) {
         int startX = ele.getRect().x + (ele.getSize().width / 4);

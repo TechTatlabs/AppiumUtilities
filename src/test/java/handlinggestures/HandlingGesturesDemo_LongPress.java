@@ -68,6 +68,15 @@ public class HandlingGesturesDemo_LongPress {
         System.out.println(driver.findElement(AppiumBy.xpath("//android.widget.TextView[@resource-id=\"android:id/title\" and @text=\"Sample menu\"]")).isDisplayed());
         System.out.println(driver.findElement(AppiumBy.xpath("//android.widget.TextView[@resource-id=\"android:id/title\" and @text=\"Sample menu\"]")).isEnabled());
 
+        System.out.println(driver.findElement(AppiumBy.xpath("//android.widget.TextView[@resource-id=\"android:id/title\" and @text=\"Sample action\"]")).isDisplayed());
+        System.out.println(driver.findElement(AppiumBy.xpath("//android.widget.TextView[@resource-id=\"android:id/title\" and @text=\"Sample action\"]")).isEnabled());
+
+        driver.findElement(AppiumBy.xpath("//android.widget.TextView[@resource-id=\"android:id/title\" and @text=\"Sample action\"]")).click();
+        Thread.sleep(2000);
+
+        System.out.println("the toast message available : " + driver.findElement(AppiumBy.xpath("//android.widget.Toast[@text=\"People Names: Group 0 clicked\"]")).getText());
+
+
         Thread.sleep(3000);
         driver.quit();
     }

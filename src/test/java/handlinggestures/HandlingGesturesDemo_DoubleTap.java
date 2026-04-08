@@ -22,7 +22,7 @@ public class HandlingGesturesDemo_DoubleTap {
     public static void main(String[] args) throws MalformedURLException, InterruptedException {
         UiAutomator2Options options = new UiAutomator2Options();
         options.setPlatformName("Android");
-        options.setDeviceName("H0C9FI1LV01B0300012");
+        options.setDeviceName("29221JEGR00379");
         options.setAutomationName(AutomationName.ANDROID_UIAUTOMATOR2);
 //        options.setCapability("PlatformVersion", "12");
         options.setAppPackage("io.appium.android.apis");
@@ -65,13 +65,18 @@ public class HandlingGesturesDemo_DoubleTap {
         PointerInput touchaction1 = new PointerInput(PointerInput.Kind.TOUCH, "fingertouch1");
         Sequence seq = new Sequence(touchaction1, 1)
                 .addAction(touchaction1.createPointerMove(Duration.ZERO, PointerInput.Origin.viewport(), centerofelement))
+
                 .addAction(touchaction1.createPointerDown(PointerInput.MouseButton.LEFT.asArg()))
-                .addAction(new Pause(touchaction1, Duration.ofMillis(500)))
+                .addAction(new Pause(touchaction1, Duration.ofMillis(100)))
+
                 .addAction(touchaction1.createPointerUp(PointerInput.MouseButton.LEFT.asArg()))
-                .addAction(new Pause(touchaction1, Duration.ofMillis(500)))
+                .addAction(new Pause(touchaction1, Duration.ofMillis(100)))
+
                 .addAction(touchaction1.createPointerDown(PointerInput.MouseButton.LEFT.asArg()))
-                .addAction(new Pause(touchaction1, Duration.ofMillis(500)))
+                .addAction(new Pause(touchaction1, Duration.ofMillis(100)))
+
                 .addAction(touchaction1.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
+
         driver.perform(Collections.singletonList(seq));
         System.out.println("-----Execution complete-------");
     }

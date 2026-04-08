@@ -6,6 +6,7 @@ import io.appium.java_client.android.options.UiAutomator2Options;
 import io.appium.java_client.remote.AutomationName;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.Point;
 
 import java.net.MalformedURLException;
@@ -16,7 +17,7 @@ public class NativetoWebview_automatedchromedriver {
 
     //    public static AndroidDriver driver;
     public static void main(String[] args) throws MalformedURLException, InterruptedException {
-        // use the command - when starting appium -> appium --allow-insecure chromedriver_autodownload
+        // use the command - when starting appium -> appium --allow-insecure=chromium:chromedriver_autodownload
         UiAutomator2Options options = new UiAutomator2Options();
         options.setPlatformName("Android");
         options.setUdid("29221JEGR00379");
@@ -33,7 +34,7 @@ public class NativetoWebview_automatedchromedriver {
 
 //        options.setIgnoreHiddenApiPolicyError(true);
 //        options.setAutoWebview(true);
-//        options.setChromedriverExecutable(System.getProperty("user.dir") + "/src/test/resources/browser/chromedriver_134");
+        options.setChromedriverExecutable(System.getProperty("user.dir") + "/src/test/resources/browser/chromedriver_146");
 //        options.setCapability("chromedriverAutodownload",true);
 
 
@@ -68,12 +69,14 @@ public class NativetoWebview_automatedchromedriver {
         //check for any other webview available
         driver.getContextHandles();// 1 native view and 1 webview
         Thread.sleep(5000);
-        Set<String> handles = driver.getContextHandles();
+        Set<String> handles = driver.getContextHandles();// it will capture bothe the native and webview modes
         for (String webviewcontent : handles) {
             if (webviewcontent.startsWith("WEBVIEW")) {
+//                this will switch to the webview
                 driver.context("WEBVIEW_com.swaglabsmobileapp");
                 System.out.println(driver.getPageSource());
-                driver.findElement(By.xpath("//textarea[@name='q']")).sendKeys("test text");
+                driver.findElement(By.xpath("//textarea[@name='q']")).sendKeys("Trump");
+                driver.findElement(By.xpath("//textarea[@name='q']")).sendKeys(Keys.ENTER);
                 break;
             }
         }
