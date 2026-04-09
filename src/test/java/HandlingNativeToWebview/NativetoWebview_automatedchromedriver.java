@@ -17,7 +17,7 @@ public class NativetoWebview_automatedchromedriver {
 
     //    public static AndroidDriver driver;
     public static void main(String[] args) throws MalformedURLException, InterruptedException {
-        // use the command - when starting appium -> appium --allow-insecure=chromium:chromedriver_autodownload
+        // use the command - when starting appium -> appium --allow-insecure=chromium:chromedriver_autodownload - downlaod the chrome version and run it sutomatically
         UiAutomator2Options options = new UiAutomator2Options();
         options.setPlatformName("Android");
         options.setUdid("29221JEGR00379");
@@ -34,6 +34,7 @@ public class NativetoWebview_automatedchromedriver {
 
 //        options.setIgnoreHiddenApiPolicyError(true);
 //        options.setAutoWebview(true);
+        // the below step - will add the chromedriver manually to invoke the chrome browser
         options.setChromedriverExecutable(System.getProperty("user.dir") + "/src/test/resources/browser/chromedriver_146");
 //        options.setCapability("chromedriverAutodownload",true);
 

@@ -31,7 +31,7 @@ public class RunAppinBackground {
         element.click();
 
         //it makes the app to keep running in background
-        driver.runAppInBackground(Duration.ofSeconds(10));// till 10 seocnds the app will be running in background
+        driver.runAppInBackground(Duration.ofSeconds(30));// till 10 seocnds the app will be running in background
 
         //after 10 seconds
         // activateApp - to open any application

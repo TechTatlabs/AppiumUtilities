@@ -1,17 +1,17 @@
 package handling_SwitchBetweenapps;
 
 import io.appium.java_client.AppiumBy;
-import io.appium.java_client.android.Activity;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.options.UiAutomator2Options;
 import io.appium.java_client.remote.AutomationName;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
 
-public class SwitchBetweenApps {
+public class SwitchBetweenApps_Chrome {
 
     public static void main(String[] args) throws MalformedURLException, InterruptedException {
         UiAutomator2Options options = new UiAutomator2Options();
@@ -40,23 +40,20 @@ public class SwitchBetweenApps {
 
         // switching to new app
         //driver.activateApp("bubdle id  or the package id") this will help to activate the app from the device
-        driver.activateApp("com.swaglabsmobileapp");
-        System.out.println("the new app ----> " + driver.getCurrentPackage());
-        driver.findElement(new AppiumBy.ByAndroidUIAutomator
-                ("new UiScrollable(new UiSelector().scrollable(true).instance(0)).scrollIntoView(new UiSelector().text(\"standard_user\"))")).click();
-        String user1= driver.findElement(AppiumBy.xpath("//android.widget.TextView[@text=\"standard_user\"]")).getText();
-        System.setProperty("userdata", user1);
+        driver.activateApp("com.android.chrome");
+        System.out.println(driver.getPageSource());
+        try {
+            driver.findElement(AppiumBy.xpath("//android.widget.Button[@resource-id=\"com.android.chrome:id/positive_button\"]")).click();
+        } catch (Exception e) {
+
+        }
+        Thread.sleep(5000);
+        driver.findElement(AppiumBy.xpath("//android.widget.EditText[@resource-id=\"com.android.chrome:id/search_box_text\"]")).sendKeys("trump");
+        driver.findElement(AppiumBy.xpath("//android.widget.EditText[@resource-id=\"com.android.chrome:id/search_box_text\"]")).sendKeys(Keys.ENTER);
 
         Thread.sleep(5000);
         // swtiching back to old app
         driver.activateApp("io.appium.android.apis");
-        System.out.println("the old app back ----> " + driver.getCurrentPackage());
-        driver.findElement(new AppiumBy.ByAndroidUIAutomator
-                ("new UiScrollable(new UiSelector().scrollable(true).instance(0)).scrollIntoView(new UiSelector().text(\"TextFields\"))")).click();
-        driver.findElement(AppiumBy.xpath("//android.widget.EditText[@resource-id=\"io.appium.android.apis:id/edit1\"]")).sendKeys(System.getProperty("userdata"));
-        Thread.sleep(5000);
-        // terminate app int he background use the below command driver.terminateApp("packagename")
-        driver.terminateApp("com.swaglabsmobileapp");
 
         Thread.sleep(5000);
         driver.quit();

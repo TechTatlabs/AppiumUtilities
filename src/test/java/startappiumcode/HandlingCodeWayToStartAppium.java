@@ -42,7 +42,7 @@ public class HandlingCodeWayToStartAppium {
 
         UiAutomator2Options options = new UiAutomator2Options();
         options.setPlatformName("Android");
-        options.setDeviceName("emulator-5554");
+        options.setDeviceName("29221JEGR00379");
         options.setAutomationName(AutomationName.ANDROID_UIAUTOMATOR2);
 //        options.setApp("/Users/aravindbalaji/Documents/Appium/Sample App/android-app.apk");
 //        options.setAppPackage("com.saucelabs.mydemoapp.rn");
@@ -85,6 +85,8 @@ public class HandlingCodeWayToStartAppium {
         }finally {
             System.out.println("inside  finally block");
             driver.quit();
+
+            //below command used to stop the appium server
             System.out.println("cehcking whether the service is up : " + serviceBuilder.build().isRunning());
             serviceBuilder.build().stop();
         }

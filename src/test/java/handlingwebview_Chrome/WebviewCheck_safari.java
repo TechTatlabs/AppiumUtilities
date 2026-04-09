@@ -21,6 +21,8 @@ public class WebviewCheck_safari {
         options.setUdid("4B733329-44E4-4712-9AD2-8EC4E24CF059");
         options.setPlatformVersion("26.2");
         options.setAutomationName(AutomationName.IOS_XCUI_TEST);
+        options.setUseNewWDA(false);// this will beuseful when the webdruver agent is already created for the automation and no additinol time needs to be spent to create it again
+//        //again for each runs
         // Ios its recommended to use the safari- safari si the native browser for all ios environments
         options.withBrowserName("Safari");
 //        options.setCapability("startIWDP", true);// only for real device - to enabling webview debugging mode
